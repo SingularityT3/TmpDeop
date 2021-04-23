@@ -1,0 +1,19 @@
+name: TmpDeop
+main: com.mind31313.tmpdeop.Main
+version: 1.0
+api-version: 1.16
+author: mind31313
+commands:
+  tmpdeop:
+    description: Temporarily deop a player
+    usage: /<command>
+  reop:
+    description: op yourself if you previously used /tmpdeop
+    usage: /<command>
+  tmpdeopadmin:
+    description: List or remove temporarily deopped players
+    usage: /<command>
+    permission: tmpdeop.admin
+permissions:
+  tmpdeop.admin:
+    default: op
