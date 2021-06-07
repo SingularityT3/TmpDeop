@@ -1,16 +1,19 @@
 package com.mind31313.tmpdeop.commands;
 
 import com.mind31313.tmpdeop.DataManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Set;
+import java.util.UUID;
 
 public class AdminCommand implements CommandExecutor {
 
-    private DataManager dataManager;
+    private final DataManager dataManager;
 
     public AdminCommand(DataManager dataManager) {
         this.dataManager = dataManager;
@@ -25,8 +28,10 @@ public class AdminCommand implements CommandExecutor {
                 StringBuilder message = new StringBuilder("Temporarily de-opped players:\n");
                 Set<String> players = dataManager.getAllPlayers();
                 if (players.size() > 0) {
-                    for (String playerName : players) {
-                        message.append(playerName + "\n");
+                    for (String playerUUID : players) {
+                        Player player = Bukkit.getPlayer(UUID.fromString(playerUUID));
+                        if (player != null)
+                            message.append(player.getName()).append("\n");
                     }
                 } else {
                     message.append("None\n");
@@ -35,11 +40,14 @@ public class AdminCommand implements CommandExecutor {
             } else if (args[0].equalsIgnoreCase("remove")) {
                 if (args.length < 2) {
                     sender.sendMessage(ChatColor.RED + "No player specified");
-                } else if (!dataManager.getAllPlayers().contains(args[1])) {
-                    sender.sendMessage(ChatColor.RED + "Player not found!");
                 } else {
-                    dataManager.removePlayer(args[1]);
-                    sender.sendMessage("Removed " + args[1] + " from list of temporarily de-opped players");
+                    Player player = Bukkit.getPlayer(args[1]);
+                    if (player == null || !dataManager.getAllPlayers().contains(player.getUniqueId().toString())) {
+                        sender.sendMessage(ChatColor.RED + "Player not found!");
+                    } else {
+                        dataManager.removePlayer(player.getUniqueId().toString());
+                        sender.sendMessage("Removed " + args[1] + " from list of temporarily de-opped players");
+                    }
                 }
             } else {
                 sender.sendMessage(ChatColor.RED + "Invalid option!");

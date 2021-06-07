@@ -25,7 +25,7 @@ public class ReopCommand implements CommandExecutor {
             sender.sendMessage(ChatColor.RED + "Only players can use that command!");
         } else if (command.getName().equalsIgnoreCase("reop")) {
             Player player = (Player) sender;
-            Object deopTime = dataManager.getPlayer(player.getName());
+            Object deopTime = dataManager.getPlayer(player.getUniqueId().toString());
             if (player.isOp()) {
                 player.sendMessage(ChatColor.RED + "Nothing changed, you are already op!");
             } else if (deopTime == null) {
@@ -37,7 +37,7 @@ public class ReopCommand implements CommandExecutor {
                 player.setOp(true);
                 player.sendMessage(ChatColor.GREEN + "You have been opped!");
             }
-            dataManager.removePlayer(player.getName());
+            dataManager.removePlayer(player.getUniqueId().toString());
         }
         return true;
     }

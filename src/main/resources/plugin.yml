@@ -1,6 +1,6 @@
 name: TmpDeop
 main: com.mind31313.tmpdeop.Main
-version: 1.0
+version: 1.1
 api-version: 1.16
 author: mind31313
 commands:

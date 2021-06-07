@@ -38,8 +38,8 @@ public class DataManager {
         writer.close();
     }
 
-    public Object getPlayer(String playerName) throws NullPointerException {
-        return data.get(playerName);
+    public Object getPlayer(String uuid) throws NullPointerException {
+        return data.get(uuid);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,11 +48,11 @@ public class DataManager {
     }
 
     @SuppressWarnings("unchecked")
-    public void addPlayer(String playerName) {
-        data.put(playerName, Instant.now().getEpochSecond());
+    public void addPlayer(String uuid) {
+        data.put(uuid, Instant.now().getEpochSecond());
     }
 
-    public void removePlayer(String playerName) {
-        data.remove(playerName);
+    public void removePlayer(String uuid) {
+        data.remove(uuid);
     }
 }

@@ -35,7 +35,7 @@ public class TempDeopCommand implements CommandExecutor {
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "That player does not exist!");
             } else {
-                dataManager.addPlayer(target.getName());
+                dataManager.addPlayer(target.getUniqueId().toString());
                 target.setOp(false);
                 target.sendMessage("You have been temporarily de-opped. Use /reop to get op back");
             }
