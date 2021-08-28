@@ -1,10 +1,27 @@
 # TempDeop
-This is a minecraft plugin to deop yourself temporarily and op yourself later without having to go back to the console. It also has an expiration time after using /tmpdeop after which you cannot use /reop. This can be changed in config.yml
+A minecraft plugin to temporarily op/deop with a configurable expiration time
 
-**Commands:**\
-/tmpdeop player(leave blank to deop yourself)\
-/reop\
-/tmpdeopadmin list | remove player
+**Commands:**
+```
+/tmpdeop <player(optional)>
+/reop
+/tmpop <player> <duration(in seconds)>
+/tmpdeopadmin list 
+/tmpdeopadmin remove <player>
+```
 
 **Permissions:**\
 tmpdeop.admin - to use /tmpdeopadmin
+
+**Config.yml:**
+```
+# Time in seconds after which /reop cannot be used(set this to 0 to disable)
+expiration-time: 3600
+# Commands disabled for temp op players
+blockedCommands:
+  - op
+  - deop
+  - tmpop
+  - tmpdeopadmin
+
+```

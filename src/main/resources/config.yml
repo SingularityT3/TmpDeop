@@ -1,2 +1,8 @@
 # Time in seconds after which /reop cannot be used(set this to 0 to disable)
 expiration-time: 3600
+# Commands disabled for temp op players
+blockedCommands:
+  - op
+  - deop
+  - tmpop
+  - tmpdeopadmin

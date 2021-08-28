@@ -1,11 +1,14 @@
-package com.mind31313.tmpdeop.commands;
+package me.mind31313.tmpdeop.commands;
 
-import com.mind31313.tmpdeop.DataManager;
+import me.mind31313.tmpdeop.DataManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.time.Instant;
+import java.util.List;
 
 public class TempDeopCommand implements CommandExecutor {
 
@@ -26,18 +29,24 @@ public class TempDeopCommand implements CommandExecutor {
             Player target;
 
             if (args.length < 1) {
-                sender.sendMessage("tmpdeop " + player.getName());
                 target = player;
             } else {
+                List<Instant> data = dataManager.getPlayer(player);
+                if (data != null && data.get(1) != null) {
+                    player.sendMessage(ChatColor.RED + "You do not have permission to deop others!");
+                    return true;
+                }
                 target = player.getServer().getPlayer(args[0]);
             }
 
             if (target == null) {
                 player.sendMessage(ChatColor.RED + "That player does not exist!");
             } else {
-                dataManager.addPlayer(target.getUniqueId().toString());
+                List<Instant> data = dataManager.getPlayer(target);
+                Instant i = data != null ? data.get(1) : null;
+                dataManager.updatePlayer(target, Instant.now(), i);
                 target.setOp(false);
-                target.sendMessage("You have been temporarily de-opped. Use /reop to get op back");
+                target.sendMessage(ChatColor.YELLOW + "You have been temporarily de-opped. Use /reop to get op back");
             }
         }
         return true;
